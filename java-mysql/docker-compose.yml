@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: change-me
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - my-network
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+
+volumes:
+  mysql:
+
+networks:
+  my-network:
+
