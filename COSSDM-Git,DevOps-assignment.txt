@@ -1,0 +1,607 @@
+1. Containerize a Plain Java Hello World Application
+
+# Create a new Java project
+mkdir java-hello-world
+cd java-hello-world
+# Create a new Java file
+touch HelloWorld.java
+# Add the following code to HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+# Compile the Java file
+javac HelloWorld.java
+# Create a Dockerfile
+touch Dockerfile
+# Add the following content to the Dockerfile
+FROM openjdk:11
+COPY . /app
+WORKDIR /app
+CMD ["java", "HelloWorld"]
+# Build the Docker image
+docker build -t hello-world .
+# Run the Docker container
+docker run hello-world
+
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ javac HelloWorld.java 
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ ls
+HelloWorld.class  HelloWorld.java
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ touch Dockerfile
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ hx Dockerfile 
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ docker build -t hello-world .
+dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ sudo docker build -t hello-world .
+[+] Building 87.0s (8/8) FINISHED                                                                                                                                        docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                               0.5s
+ => => transferring dockerfile: 105B                                                                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/openjdk:11                                                                                                                      7.9s
+ => [internal] load .dockerignore                                                                                                                                                  0.4s
+ => => transferring context: 2B                                                                                                                                                    0.0s
+ => [internal] load build context                                                                                                                                                  0.6s
+ => => transferring context: 747B                                                                                                                                                  0.0s
+ => [1/3] FROM docker.io/library/openjdk:11@sha256:99bac5bf83633e3c7399aed725c8415e7b569b54e03e4599e580fc9cdb7c21ab                                                               70.3s
+ => => resolve docker.io/library/openjdk:11@sha256:99bac5bf83633e3c7399aed725c8415e7b569b54e03e4599e580fc9cdb7c21ab                                                                0.3s
+ => => sha256:e81b7f317654b0f26d3993e014b04bcb29250339b11b9de41e130feecd4cd43c 1.79kB / 1.79kB                                                                                     0.0s
+ => => sha256:99bac5bf83633e3c7399aed725c8415e7b569b54e03e4599e580fc9cdb7c21ab 1.04kB / 1.04kB                                                                                     0.0s
+ => => sha256:47a932d998b743b9b0bcce55aa8ede77de94a6a183c8a67dec9d5e3b8ce0faa7 6.26kB / 6.26kB                                                                                     0.0s
+ => => sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 55.00MB / 55.00MB                                                                                  23.6s
+ => => sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 10.88MB / 10.88MB                                                                                  27.8s
+ => => sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 5.16MB / 5.16MB                                                                                    21.7s
+ => => sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 54.58MB / 54.58MB                                                                                  55.6s
+ => => extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452                                                                                          1.5s
+ => => sha256:d85151f15b6683b98f21c3827ac545188b1849efb14a1049710ebc4692de3dd5 5.42MB / 5.42MB                                                                                    26.2s
+ => => extracting sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165                                                                                          0.3s
+ => => sha256:66223a710990a0ae7162aeed80417d30303afa3f24aafa57aa30348725e2230b 213B / 213B                                                                                        26.7s
+ => => sha256:db38d58ec8ab4111b072f6700f978a51985acd252aabce3be377f25162e68301 202.07MB / 202.07MB                                                                                66.0s
+ => => extracting sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a                                                                                          0.3s
+ => => extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6                                                                                          1.4s
+ => => extracting sha256:d85151f15b6683b98f21c3827ac545188b1849efb14a1049710ebc4692de3dd5                                                                                          1.2s
+ => => extracting sha256:66223a710990a0ae7162aeed80417d30303afa3f24aafa57aa30348725e2230b                                                                                          0.0s
+ => => extracting sha256:db38d58ec8ab4111b072f6700f978a51985acd252aabce3be377f25162e68301                                                                                          1.5s
+ => [2/3] COPY . /app                                                                                                                                                              5.2s
+ => [3/3] WORKDIR /app                                                                                                                                                             0.7s
+ => exporting to image                                                                                                                                                             0.9s
+ => => exporting layers                                                                                                                                                            0.6s
+ => => writing image sha256:b2a2f2979e9d5b9fac672dcd130aac976bd13db6988d740c49fa72bec3f32d69                                                                                       0.0s
+ => => naming to docker.io/library/hello-world        
+ dac@cdac:~/Documents/batch2/cossdm/java-hello-world$ sudo docker run hello-world
+Hello, World!
+
+
+2. Java with MySQL Integration as discussed in the class
+
+# Create a new Java project
+mkdir java-mysql
+cd java-mysql
+# Create a new Java file
+
+import java.sql.*;
+
+public class StudentSQL {
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Statement stmt = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the initial connection to create the database
+            con = DriverManager.getConnection("jdbc:mysql://mysql:3306?useSSL=false&allowPublicKeyRetrieval=true", "root", "change-me");
+
+            stmt = con.createStatement();
+
+            // Create the database if it does not exist
+            String createDatabaseSQL = "CREATE DATABASE IF NOT EXISTS cdac";
+            stmt.executeUpdate(createDatabaseSQL);
+
+            // Close the initial connection
+            stmt.close();
+            con.close();
+
+            // Establish a new connection to the created database
+            con = DriverManager.getConnection("jdbc:mysql://mysql:3306/cdac?useSSL=false&allowPublicKeyRetrieval=true", "root", "change-me");
+
+            // Create a table if it does not exist
+            stmt = con.createStatement();
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS students ("
+                    + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                    + "name VARCHAR(50), "
+                    + "age INT)";
+            stmt.executeUpdate(createTableSQL);
+
+            // Insert data into the table
+            pstmt = con.prepareStatement("INSERT INTO students (name, age) VALUES (?, ?)");
+            pstmt.setString(1, "John Doe");
+            pstmt.setInt(2, 20);
+            pstmt.executeUpdate();
+
+            // Query the table
+            rs = stmt.executeQuery("SELECT * FROM students");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                System.out.println("ID: " + id + ", Name: " + name + ", Age: " + age);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# hx Dockerfile 
+
+First create a docker network
+
+docker network create my-network
+
+Start a MySQL container in this network
+
+docker run --name mysql --network my-network -d -p 3306:3306 -e
+MYSQL_ROOT_PASSWORD=change-me -v mysql:/var/lib/mysql mysql:8
+
+Build Docker image
+
+docker build -t java-mysql .
+
+Run a Docker container of our code with MySQL container
+
+docker run --network my-network java-mysql
+
+Dockerfile
+
+FROM openjdk
+
+WORKDIR /app
+
+COPY . /app
+
+COPY mysql-connector-java-8.0.15.jar /app/lib/
+
+RUN javac *.java
+
+CMD ["java", "-cp",
+"/app/lib/mysql-connector-java-8.0.15.jar:.","StudentSQL"]
+
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# docker build -t java-mysql .
+[+] Building 50.2s (10/10) FINISHED                                                                                                                                      docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                               0.2s
+ => => transferring dockerfile: 224B                                                                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/openjdk:latest                                                                                                                  5.5s
+ => [internal] load .dockerignore                                                                                                                                                  0.3s
+ => => transferring context: 2B                                                                                                                                                    0.0s
+ => [1/5] FROM docker.io/library/openjdk:latest@sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f                                                           33.3s
+ => => resolve docker.io/library/openjdk:latest@sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f                                                            0.2s
+ => => sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f 1.04kB / 1.04kB                                                                                     0.0s
+ => => sha256:fe05457a5e9b9403f8e72eeba507ae80a4237d2d2d3f219fa62ceb128482a9ee 954B / 954B                                                                                         0.0s
+ => => sha256:71260f256d19f4ae5c762601e5301418d2516ca591103b1376f063be0b7ba056 4.46kB / 4.46kB                                                                                     0.0s
+ => => sha256:57b698b7af4b18900b53c768746b1dfb603dfb9aec1eea328fdac86d37001e2a 12.26MB / 12.26MB                                                                                   4.0s
+ => => sha256:95a27dbe0150755fca4304b4afd0d7d6dd6a40ede6fdb30da8568e9e8cdf23a9 188.74MB / 188.74MB                                                                                29.9s
+ => => sha256:197c1adcd755131915cd019bdd58658d44445b3638f65449932c18ee39b6047c 44.56MB / 44.56MB                                                                                  20.7s
+ => => extracting sha256:197c1adcd755131915cd019bdd58658d44445b3638f65449932c18ee39b6047c                                                                                          1.0s
+ => => extracting sha256:57b698b7af4b18900b53c768746b1dfb603dfb9aec1eea328fdac86d37001e2a                                                                                          0.3s
+ => => extracting sha256:95a27dbe0150755fca4304b4afd0d7d6dd6a40ede6fdb30da8568e9e8cdf23a9                                                                                          1.6s
+ => [internal] load build context                                                                                                                                                  0.2s
+ => => transferring context: 5.95kB                                                                                                                                                0.0s
+ => [2/5] WORKDIR /app                                                                                                                                                             4.7s
+ => [3/5] COPY . /app                                                                                                                                                              0.8s
+ => [4/5] COPY mysql-connector-java-8.0.15.jar /app/lib/                                                                                                                           0.8s
+ => [5/5] RUN javac *.java                                                                                                                                                         1.9s
+ => exporting to image                                                                                                                                                             1.5s
+ => => exporting layers                                                                                                                                                            1.2s
+ => => writing image sha256:f3e588007fdadd8fd31d1dd5c48da6d0210dc76a7617749079202608bf47de5a                                                                                       0.0s
+ => => naming to docker.io/library/java-mysql                                                                                                                                      0.1s
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# docker run --network my-network java-mysql
+ID: 1, Name: John Doe, Age: 20
+
+
+
+
+3. Do the above using Docker Compose
+
+And here's the docker-compose.yml file:
+
+yaml
+
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: change-me
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - my-network
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+
+volumes:
+  mysql:
+
+networks:
+  my-network:
+
+
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# docker-compose build
+WARN[0000] /home/dac/Documents/batch2/cossdm/java-mysql/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Building 8.8s (11/11) FINISHED                                                                                                                                       docker:default
+ => [app internal] load build definition from Dockerfile                                                                                                                           0.1s
+ => => transferring dockerfile: 224B                                                                                                                                               0.0s
+ => [app internal] load metadata for docker.io/library/openjdk:latest                                                                                                              2.7s
+ => [app internal] load .dockerignore                                                                                                                                              0.1s
+ => => transferring context: 2B                                                                                                                                                    0.0s
+ => [app 1/5] FROM docker.io/library/openjdk:latest@sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f                                                        0.0s
+ => [app internal] load build context                                                                                                                                              0.1s
+ => => transferring context: 515B                                                                                                                                                  0.0s
+ => CACHED [app 2/5] WORKDIR /app                                                                                                                                                  0.0s
+ => [app 3/5] COPY . /app                                                                                                                                                          0.8s
+ => [app 4/5] COPY mysql-connector-java-8.0.15.jar /app/lib/                                                                                                                       0.7s
+ => [app 5/5] RUN javac *.java                                                                                                                                                     1.8s
+ => [app] exporting to image                                                                                                                                                       1.2s
+ => => exporting layers                                                                                                                                                            0.9s
+ => => writing image sha256:5bf738591b9ff956447d2d14bac90a49d5d15d57bf3a92e5042f51371ed1d390                                                                                       0.0s
+ => => naming to docker.io/library/java-mysql-app                                                                                                                                  0.1s
+ => [app] resolving provenance for metadata file                                                                                                                                   0.0s
+[+] Building 1/1
+ ✔ app  Built                                                                                                                                                                      0.0s 
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# docker-compose up -d
+WARN[0000] /home/dac/Documents/batch2/cossdm/java-mysql/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Running 4/4
+ ✔ Network java-mysql_my-network  Created                                                                                                                                          0.3s 
+ ✔ Volume "java-mysql_mysql"      Created                                                                                                                                          0.0s 
+ ✔ Container java-mysql-mysql-1   Started                                                                                                                                          2.2s 
+ ✔ Container java-mysql-app-1     Started                                                                                                                                          2.5s 
+root@cdac:/home/dac/Documents/batch2/cossdm/java-mysql# 
+
+
+
+4. Start a Apache/Tomcat container. Change the home page to print "Hello C-DAC". Verify in the browser.
+
+# Create a new directory
+mkdir tomcat-hello
+cd tomcat-hello
+# Create a new Dockerfile
+touch Dockerfile
+# Add the following content to the Dockerfile
+FROM tomcat:9
+COPY index.html /usr/local/tomcat/webapps/ROOT/
+# Create an index.html file
+echo "<h1>Hello C-DAC</h1>" > index.html
+# Build the Docker image
+docker build -t tomcat-hello .
+# Run the Docker container
+docker run -p 8080:8080 tomcat-hello
+# Open a web browser and go to http://localhost:8080
+
+root@cdac:/home/dac/Documents/batch2/cossdm# mkdir tomcat-hello
+root@cdac:/home/dac/Documents/batch2/cossdm# ls
+imagedocker.tar  java-hello-world  java-mysql  tomcat-hello
+root@cdac:/home/dac/Documents/batch2/cossdm# cd tomcat-hello/
+root@cdac:/home/dac/Documents/batch2/cossdm/tomcat-hello# touch Dockerfile
+root@cdac:/home/dac/Documents/batch2/cossdm/tomcat-hello# hx Dockerfile 
+root@cdac:/home/dac/Documents/batch2/cossdm/tomcat-hello# hx index.html
+root@cdac:/home/dac/Documents/batch2/cossdm/tomcat-hello# docker build -t tomcat-hello .
+[+] Building 41.7s (7/7) FINISHED                                                                                                                                        docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                               0.4s
+ => => transferring dockerfile: 99B                                                                                                                                                0.0s
+ => [internal] load metadata for docker.io/library/tomcat:9                                                                                                                        4.0s
+ => [internal] load .dockerignore                                                                                                                                                  0.5s
+ => => transferring context: 2B                                                                                                                                                    0.0s
+ => [internal] load build context                                                                                                                                                  0.6s
+ => => transferring context: 58B                                                                                                                                                   0.0s
+ => [1/2] FROM docker.io/library/tomcat:9@sha256:c0fa34cfdbc77a59f3ff6c85e564b533a16ee948dec0cc84fdfd69b8c1f426e8                                                                 31.0s
+ => => resolve docker.io/library/tomcat:9@sha256:c0fa34cfdbc77a59f3ff6c85e564b533a16ee948dec0cc84fdfd69b8c1f426e8                                                                  0.5s
+ => => sha256:9d2aee2e2dd95ed0f6984b961152665608cf5fa8d986f033095ffaf3fdce22ad 2.72kB / 2.72kB                                                                                     0.0s
+ => => sha256:2065724f8a26cafa07e4f936ab780bf47cfa710ae32007eea5431742d1c1aca4 12.51kB / 12.51kB                                                                                   0.0s
+ => => sha256:c0fa34cfdbc77a59f3ff6c85e564b533a16ee948dec0cc84fdfd69b8c1f426e8 6.64kB / 6.64kB                                                                                     0.0s
+ => => sha256:e18be1fe9d8909f124ad442b8874a839727099e1e57bc66d114cb5073af96405 157.59MB / 157.59MB                                                                                23.7s
+ => => sha256:2726e237d1a374379e783053d93d0345c8a3bf3c57b5d35b099de1ad777486ee 29.72MB / 29.72MB                                                                                   7.4s
+ => => sha256:3a83fda68147d77be3181292b59bc74b2d35985004c919b91577b2ca2621e38d 22.95MB / 22.95MB                                                                                  16.8s
+ => => sha256:1080edf8b8b2f8ece784c3044c8d512bb05b21d7d0810a87b1daa6314e590cf1 158B / 158B                                                                                         8.0s
+ => => extracting sha256:2726e237d1a374379e783053d93d0345c8a3bf3c57b5d35b099de1ad777486ee                                                                                          0.8s
+ => => sha256:e17ac007937180bd638f2c45439ec7f67790353b0c398ed11a66db246fe9f871 2.28kB / 2.28kB                                                                                     8.5s
+ => => sha256:b201ba03556d2a87679d28af0f9879cdb27a613c8c71708fccff1c4f68ddc882 138B / 138B                                                                                         9.1s
+ => => sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B                                                                                           9.6s
+ => => sha256:72adc44b09c5c4f403308011a40327082e961a71d0f1ecd7ced22f23e8b8a7c4 13.71MB / 13.71MB                                                                                  13.6s
+ => => extracting sha256:3a83fda68147d77be3181292b59bc74b2d35985004c919b91577b2ca2621e38d                                                                                          0.6s
+ => => extracting sha256:e18be1fe9d8909f124ad442b8874a839727099e1e57bc66d114cb5073af96405                                                                                          1.5s
+ => => extracting sha256:1080edf8b8b2f8ece784c3044c8d512bb05b21d7d0810a87b1daa6314e590cf1                                                                                          0.0s
+ => => extracting sha256:e17ac007937180bd638f2c45439ec7f67790353b0c398ed11a66db246fe9f871                                                                                          0.0s
+ => => extracting sha256:b201ba03556d2a87679d28af0f9879cdb27a613c8c71708fccff1c4f68ddc882                                                                                          0.0s
+ => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                                                                                          0.0s
+ => => extracting sha256:72adc44b09c5c4f403308011a40327082e961a71d0f1ecd7ced22f23e8b8a7c4                                                                                          0.3s
+ => [2/2] COPY index.html /usr/local/tomcat/webapps/ROOT/                                                                                                                          4.2s
+ => exporting to image                                                                                                                                                             0.7s
+ => => exporting layers                                                                                                                                                            0.4s
+ => => writing image sha256:fbba5d8470ed4a8340644de1057d9be08694f8b58a62fcf6abc60b60caa1e186                                                                                       0.0s
+ => => naming to docker.io/library/tomcat-hello                                                                                                                                    0.1s
+root@cdac:/home/dac/Documents/batch2/cossdm/tomcat-hello# docker run -p 8080:8080 tomcat-hello
+NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+18-Apr-2025 14:33:29.446 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.104
+18-Apr-2025 14:33:29.448 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Apr 4 2025 12:32:55 UTC
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.104.0
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-31-generic
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/java/openjdk
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.6+7-LTS
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Eclipse Adoptium
+18-Apr-2025 14:33:29.449 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /usr/local/tomcat
+18-Apr-2025 14:33:29.450 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /usr/local/tomcat
+18-Apr-2025 14:33:29.457 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+18-Apr-2025 14:33:29.457 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+18-Apr-2025 14:33:29.458 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
+
+
+
+5. For the above, add a Docker Volume.
+
+# Run the Tomcat container with a volume
+docker run -p 8080:8080 -v /path/to/local/directory:/usr/local/tomcat/webapps/ROOT tomcat-hello
+
+
+6. Push your "Hello World" Java image to DockerHub.
+
+# Log in to DockerHub
+docker login
+# Tag the image
+docker tag hello-world your-dockerhub-username/hello-world
+# Push the image
+docker push your-dockerhub-username/hello-world
+
+root@cdac:/home/dac/Documents/batch2/cossdm/hello-java# hx Hello.java 
+root@cdac:/home/dac/Documents/batch2/cossdm/hello-java# docker build -t my-cdac-helloworld .
+[+] Building 7.3s (9/9) FINISHED                                                                                                                                         docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                               0.1s
+ => => transferring dockerfile: 144B                                                                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/openjdk:12-alpine                                                                                                               1.2s
+ => [internal] load .dockerignore                                                                                                                                                  0.1s
+ => => transferring context: 2B                                                                                                                                                    0.0s
+ => [internal] load build context                                                                                                                                                  0.1s
+ => => transferring context: 176B                                                                                                                                                  0.0s
+ => CACHED [1/4] FROM docker.io/library/openjdk:12-alpine@sha256:fecd532eaee349b4d9e329148e99de77ffaf803e66e184a0e4d6b946bb97ffa3                                                  0.0s
+ => [2/4] COPY . /my_java_app                                                                                                                                                      0.8s
+ => [3/4] WORKDIR /my_java_app                                                                                                                                                     0.6s
+ => [4/4] RUN javac *.java                                                                                                                                                         1.9s
+ => exporting to image                                                                                                                                                             1.3s
+ => => exporting layers                                                                                                                                                            1.0s
+ => => writing image sha256:ab00d91668077e0d9b25ce447bb4f1d563c68e8dc857b59674a22ca476c07cec                                                                                       0.0s
+ => => naming to docker.io/library/my-cdac-helloworld                                                                                                                              0.1s
+root@cdac:/home/dac/Documents/batch2/cossdm/hello-java# docker run my-cdac-helloworld
+Hello, World
+
+
+
+7. Run a Docker container from one of your batch-mate's Docker image pulled from Docker Hub.
+
+# Pull the image from DockerHub
+docker pull your-batch-mate-username/hello-world
+# Run the container
+docker run your-batch-mate-username/hello-world
+
+
+8. Create an nginx Pod.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+
+9. Run the nginx Pod as a service.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx-pod
+  ports:
+  - port: 80
+    targetPort: 80
+  
+
+
+10. Change the replicas to 5.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-pod
+  template:
+    metadata:
+      labels:
+        app: nginx-pod
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+
+11. Manually delete a pod. Verify that a new pod gets created.
+
+# Delete a pod
+kubectl delete pod nginx-pod-xyz
+
+# Verify a new pod is created
+kubectl get pods
+
+
+12. Create a new repository on GitHub. Clone it on the local machine. Add a "Hello World" Java program and push it to GitHub and verify.
+
+# Create a new repository on GitHub
+# Clone the repository on your local machine
+git clone https://github.com/your-username/hello-world-java.git
+cd hello-world-java
+# Create a new Java file
+touch HelloWorld.java
+# Add the "Hello World" Java code
+git add HelloWorld.java
+git commit -m "Add Hello World Java program"
+git push
+
+
+13. Now create two branches for the above program on the local machine. Edit the same file in both the branches, merge changes, and push the final version on to GitHub.
+
+# Create two branches
+git checkout -b feature/branch1
+# Edit the HelloWorld.java file
+git add HelloWorld.java
+git commit -m "Edit HelloWorld.java in branch1"
+git checkout -b feature/branch2
+# Edit the HelloWorld.java file (different changes)
+git add HelloWorld.java
+git commit -m "Edit HelloWorld.java in branch2"
+# Merge the changes
+git checkout main
+git merge feature/branch1
+git merge feature/branch2
+# Push the final version
+git push
+
+
+14. Use a yaml file to run nginx deployment with 5 pods in Kubernetes.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+
+15. Write a Java program to accept two numbers from the user and display their sum. Create a Docker image and run it as a container.
+
+import java.util.Scanner;
+
+public class SumCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the first number: ");
+        int num1 = scanner.nextInt();
+        System.out.print("Enter the second number: ");
+        int num2 = scanner.nextInt();
+        int sum = num1 + num2;
+        System.out.println("The sum of " + num1 + " and " + num2 + " is " + sum);
+    }
+}
+# Create a Dockerfile
+FROM openjdk:11
+COPY . /app
+WORKDIR /app
+CMD ["java", "SumCalculator"]
+# Build the Docker image
+docker build -t sum-calculator .
+# Run the Docker container
+docker run sum-calculator
+
+
+16. Run an Ubuntu container. Open a terminal inside it. Create a directory called cdac. Create a file named hello.txt and store your name in it.
+
+# Run an Ubuntu container
+docker run -it ubuntu
+# Create a directory
+mkdir cdac
+# Create a file with your name
+echo "Your Name" > cdac/hello.txt
+
+
+17. Stop and remove the above container, this time rerun with a volume attached.
+
+# Stop and remove the container
+docker stop <container-id>
+docker rm <container-id>
+# Rerun the container with a volume attached
+docker run -it -v /path/to/local/directory:/cdac ubuntu
+
+
+18. Stop and remove the container and restart it. Check if the earlier file still exists.
+
+# Stop and remove the container
+docker stop <container-id>
+docker rm <container-id>
+# Rerun the container
+docker run -it -v /path/to/local/directory:/cdac ubuntu
+# Check if the file still exists
+ls /cdac
+
+
+19. Run a fresh Ubuntu container. Install nano editor in it. Open nano and create file 'cdac.txt' containing text 'Hello C-DAC'.
+
+# Run a fresh Ubuntu container
+docker run -it ubuntu
+# Install nano editor
+apt-get update
+apt-get install -y nano
+# Create a file 'cdac.txt' with 'Hello C-DAC'
+nano cdac.txt
+# Add the text 'Hello C-DAC' and save the file
+
+
+20. Start a MySQL container. Open a terminal inside it. Create a database named testdb. In that database, create a table named 'customer' with fields customer_id and name. Add 5 records.
+
+# Start a MySQL container
+docker run -d -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 mysql:5.7
+# Open a terminal inside the container
+docker exec -it <container-id> bash
+# Create a database
+mysql -u root -p
+CREATE DATABASE testdb;
+# Create a table
+USE testdb;
+CREATE TABLE customer (
+  customer_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255)
+);
+# Add 5 records
+INSERT INTO customer (name) VALUES ('John Doe'), ('Jane Smith'), ('Bob Johnson'), ('Sarah Lee'), ('Tom Wilson');
